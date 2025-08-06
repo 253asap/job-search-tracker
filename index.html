@@ -331,6 +331,10 @@
                     <div class="summary-number" id="responseRate">0%</div>
                     <div class="summary-label">Response Rate</div>
                 </div>
+                <div class="summary-item">
+                    <div class="summary-number" id="rejectionRate">0%</div>
+                    <div class="summary-label">Rejection Rate</div>
+                </div>
             </div>
 
             <div class="table-container">
@@ -588,8 +592,13 @@
                         job.status !== "Applied" &&
                         job.status !== "Waiting for Response"
                 ).length;
+                const rejections = jobs.filter(
+                    (job) => job.status === "Rejected"
+                ).length;
                 const responseRate =
                     total > 0 ? Math.round((responses / total) * 100) : 0;
+                const rejectionRate =
+                    responses > 0 ? Math.round((rejections / responses) * 100) : 0;
 
                 document.getElementById("totalApps").textContent = total;
                 document.getElementById("interviewCount").textContent =
@@ -597,6 +606,8 @@
                 document.getElementById("offerCount").textContent = offers;
                 document.getElementById("responseRate").textContent =
                     responseRate + "%";
+                document.getElementById("rejectionRate").textContent =
+                    rejectionRate + "%";
             }
 
             function clearCompleted() {
